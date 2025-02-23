@@ -1,4 +1,9 @@
 package ru.netology.Radio;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 public class Radio {
 
