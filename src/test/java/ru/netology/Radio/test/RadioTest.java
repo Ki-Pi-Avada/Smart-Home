@@ -6,6 +6,28 @@ import ru.netology.Radio.Radio;
 
 public class RadioTest {
     @Test
+    public void shouldCreateRadioWithDefaultNumberOfStations() {
+        Radio radio = new Radio();
+        Assertions.assertEquals(10, radio.getNumberOfStations());
+    }
+    @Test
+    public void shouldCreateRadioWithCustomNumberOfStations() {
+        Radio radio = new Radio(20);
+        Assertions.assertEquals(20, radio.getNumberOfStations());
+    }
+    @Test
+    public void shouldNotCreateRadioWithCustomStation() {
+        Radio radio = new Radio(-5);
+        Assertions.assertEquals(10, radio.getNumberOfStations());
+    }
+    @Test
+    public void shouldSwitchToNextStation() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(18);
+        radio.nextStation();
+        Assertions.assertEquals(19, radio.getCurrentStation());
+    }
+    @Test
     public void shouldSetCurrentStation() {
         Radio radio = new Radio();
         radio.setCurrentStation(5);
@@ -14,41 +36,33 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetCurrentStationIfInvalid() {
-        Radio radio = new Radio();
-        radio.setCurrentStation(10);
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(25);
         Assertions.assertEquals(radio.getCurrentStation(), 0);
     }
 
     @Test
-    public void shouldSwitchToNextStation() {
-        Radio radio = new Radio();
-        radio.setCurrentStation(8);
+    public void shouldSwitchToZeroStationAfterMax() {
+        Radio radio = new Radio(20);
+        radio.setCurrentStation(19);
         radio.nextStation();
-        Assertions.assertEquals(radio.getCurrentStation(), 9);
-    }
-
-    @Test
-    public void shouldSwitchToZeroStationAfterNine() {
-        Radio radio = new Radio();
-        radio.setCurrentStation(9);
-        radio.nextStation();
-        Assertions.assertEquals(radio.getCurrentStation(), 0);
+        Assertions.assertEquals(0, radio.getCurrentStation());
     }
 
     @Test
     public void shouldSwitchToPreviousStation() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(20);
         radio.setCurrentStation(5);
         radio.prevStation();
-        Assertions.assertEquals(radio.getCurrentStation(), 4);
+        Assertions.assertEquals(4, radio.getCurrentStation());
     }
 
     @Test
-    public void shouldSwitchToNineStationAfterZero() {
-        Radio radio = new Radio();
+    public void shouldSwitchToMaxStationAfterZero() {
+        Radio radio = new Radio(20);
         radio.setCurrentStation(0);
         radio.prevStation();
-        Assertions.assertEquals(radio.getCurrentStation(), 9);
+        Assertions.assertEquals(19, radio.getCurrentStation());
     }
 
     @Test
